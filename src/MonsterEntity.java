@@ -67,6 +67,10 @@ public class MonsterEntity extends LivingEntity {
         hurt(damage);
     }
 
+    /**
+     * Атаковать игрока
+     * @param player - ссылка на объект игрока
+     */
     public void AttackPlayer(PlayerEntity player){
         player.Hurt(baseDamage, elementDamage, damageType);
     }

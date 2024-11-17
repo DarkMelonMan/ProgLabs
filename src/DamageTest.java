@@ -1,6 +1,12 @@
 import java.util.Scanner;
 
+/**
+ * Класс для тестирования работы системы урона
+ */
 public class DamageTest {
+    /**
+     * Выбор класса для тестирования
+     */
     static void ChooseClass(){
         int choice;
         do{
@@ -9,7 +15,7 @@ public class DamageTest {
                 Scanner in = new Scanner(System.in);
                 choice = in.nextInt();
                 if (choice < 1 || choice > 3)
-                    System.out.print("Wrong choic. Try again: ");
+                    System.out.print("Wrong choice. Try again: ");
             } while (choice < 1 || choice > 3);
             MonsterEntity monster1 = new MonsterEntity("Blob", 20, 1.5, 15, 8, Element.MAGIC, Element.FIRE);
             MonsterEntity monster2 = new MonsterEntity("Ben", 20, 1.5, 15, 8, Element.MAGIC, Element.LIGHTING);
