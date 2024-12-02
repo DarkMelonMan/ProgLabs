@@ -6,16 +6,28 @@ import java.util.Scanner;
 public class MonsterEntity extends LivingEntity {
     double baseDamage;
     double elementDamage;
-    Element weakness;
-    Element damageType;
+    Util.Element weakness;
+    Util.Element damageType;
 
     public MonsterEntity(String name, double healthPoints, double movementSpeed, double baseDamage
-            , double elementDamage, Element weakness, Element damageType){
+            , double elementDamage, Util.Element weakness, Util.Element damageType){
         super(name, healthPoints, movementSpeed);
         this.baseDamage = baseDamage;
         this.elementDamage = elementDamage;
         this.weakness = weakness;
         this.damageType = damageType;
+    }
+
+    public double getBaseDamage() {
+        return baseDamage;
+    }
+
+    public double getElementDamage() {
+        return elementDamage;
+    }
+
+    public Util.Element getDamageType() {
+        return damageType;
     }
 
     public MonsterEntity(){
@@ -39,16 +51,16 @@ public class MonsterEntity extends LivingEntity {
             input = in.nextInt();
             if (input < 0 || input > 3)
                 System.out.print("\nInvalid weakness type. Try again: ");
-            else weakness = Element.values()[input];
+            else weakness = Util.Element.values()[input];
         } while (input < 0 || input > 3);
         System.out.print("\nEnter elemental type of damage of " + name + " monster entity: ");
         do {
             input = in.nextInt();
             if (input < 0 || input > 3)
                 System.out.print("\nInvalid type of damage. Try again: ");
-            else damageType = Element.values()[input];
+            else damageType = Util.Element.values()[input];
         } while (input < 0 || input > 3);
-        if (damageType == Element.NONE) elementDamage = 0;
+        if (damageType == Util.Element.NONE) elementDamage = 0;
         else{
             do {
                 elementDamage = in.nextDouble();
@@ -72,7 +84,7 @@ public class MonsterEntity extends LivingEntity {
      * @param player - ссылка на объект игрока
      */
     public void AttackPlayer(PlayerEntity player){
-        player.Hurt(baseDamage, elementDamage, damageType);
+        player.Hurt(this);
     }
 
     /**
@@ -90,7 +102,7 @@ public class MonsterEntity extends LivingEntity {
      * Получить слабость монстра к определённому типу стихийного урона
      * @return Слабость к определённому типу стихийного урона
      */
-    public Element GetMonsterWeakness(){
+    public Util.Element GetMonsterWeakness(){
         return weakness;
     }
 }

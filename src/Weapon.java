@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class Weapon {
     private double baseDamage;
     private double elementDamage;
-    private Element damageType;
+    private Util.Element damageType;
 
-    public Weapon(double baseDamage, double elementDamage, Element damageType){
+    public Weapon(double baseDamage, double elementDamage, Util.Element damageType){
         this.baseDamage = baseDamage;
         this.elementDamage = elementDamage;
         this.damageType = damageType;
@@ -18,18 +18,16 @@ public class Weapon {
         inputFields();
     }
 
-    /**
-     * Получить общее количество урона, наносимое монстру
-     * @param weakness - Тип элементальной слабости монстра
-     * @return Общее количество урона с учётом стихийного и физического урона
-     */
-    public double GetDamage(Element weakness){
-        double damage = baseDamage;
-        if (weakness == damageType && weakness != Element.NONE)
-            damage += elementDamage;
-        else if (weakness != Element.NONE)
-            damage += elementDamage * 0.5;
-        return damage;
+    public double getBaseDamage() {
+        return baseDamage;
+    }
+
+    public double getElementDamage() {
+        return elementDamage;
+    }
+
+    public Util.Element getDamageType() {
+        return damageType;
     }
 
     /**
@@ -49,9 +47,9 @@ public class Weapon {
             input = in.nextInt();
             if (input < 0 || input > 3)
                 System.out.print("\nInvalid type of damage. Try again: ");
-            else damageType = Element.values()[input];
+            else damageType = Util.Element.values()[input];
         } while (input < 0 || input > 3);
-        if (damageType == Element.NONE) elementDamage = 0;
+        if (damageType == Util.Element.NONE) elementDamage = 0;
         else{
             do {
                 elementDamage = in.nextDouble();

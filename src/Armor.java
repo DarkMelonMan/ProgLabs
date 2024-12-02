@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class Armor {
     private double baseDefence;
     private double elementDefence;
-    private Element defenceType;
+    private Util.Element defenceType;
 
-    public Armor(double baseDefence, double elementDefence, Element defenceType){
+    public Armor(double baseDefence, double elementDefence, Util.Element defenceType){
         this.baseDefence = baseDefence;
         this.elementDefence = elementDefence;
         this.defenceType = defenceType;
@@ -16,6 +16,18 @@ public class Armor {
 
     public Armor(){
         inputFields();
+    }
+
+    public double getBaseDefence() {
+        return baseDefence;
+    }
+
+    public double getElementDefence() {
+        return elementDefence;
+    }
+
+    public Util.Element getDefenceType() {
+        return defenceType;
     }
 
     /**
@@ -35,9 +47,9 @@ public class Armor {
             input = in.nextInt();
             if (input < 0 || input > 3)
                 System.out.print("\nInvalid type of defence. Try again: ");
-            else defenceType = Element.values()[input];
+            else defenceType = Util.Element.values()[input];
         } while (input < 0 || input > 3);
-        if (defenceType == Element.NONE) elementDefence = 0;
+        if (defenceType == Util.Element.NONE) elementDefence = 0;
         else{
             do {
                 elementDefence = in.nextDouble();
@@ -46,21 +58,6 @@ public class Armor {
             } while (elementDefence <= 0);
         }
         System.out.println();
-    }
-
-    /**
-     * Получить общее количество урона
-     * @param baseDamage - количество базового урона
-     * @param elementDamage - количество стихийного урона
-     * @param damageType - тип стихийного урона
-     * @return общее количество урона с учётом базового и стихийного
-     */
-    public double GetActualDamage(double baseDamage, double elementDamage, Element damageType){
-        double damage = baseDamage * (1 - baseDefence / 100);
-        if (defenceType == damageType && damageType != Element.NONE)
-            damage += elementDamage * (1 - elementDefence / 100);
-        else if (damageType != Element.NONE) damage += elementDamage;
-        return damage;
     }
 
     /**

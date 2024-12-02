@@ -42,12 +42,10 @@ public class PlayerEntity extends LivingEntity {
 
     /**
      * Получить урон
-     * @param baseDamage - базовый урон
-     * @param elementDamage - стихийный урон
-     * @param damageType - тип стихийного урона
+     * @param monster - ссылка на объект монстра
      */
-    public void Hurt(double baseDamage, double elementDamage, Element damageType){
-        hurt(armor.GetActualDamage(baseDamage, elementDamage, damageType));
+    public void Hurt(MonsterEntity monster){
+        hurt(Util.CalculateMonsterDamage(armor, monster));
     }
 
     /**
@@ -55,7 +53,7 @@ public class PlayerEntity extends LivingEntity {
      * @param monster - ссылка на объект монстра
      */
     public void AttackMonster(MonsterEntity monster){
-        monster.Hurt(weapon.GetDamage(monster.GetMonsterWeakness()));
+        monster.Hurt(Util.CalculatePlayerDamage(weapon, monster.GetMonsterWeakness()));
     }
 
     /**
