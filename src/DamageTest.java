@@ -1,29 +1,20 @@
-import java.util.Scanner;
-
 /**
  * Класс для тестирования работы системы урона
  */
 public class DamageTest {
+    static int choice;
+
     /**
      * Выбор класса для тестирования
      */
     static void ChooseClass(){
-        int choice;
-        do{
-            System.out.println("Choose class type:\n1)MonsterEntity\n2)PlayerEntity\n3)Exit");
-            do{
-                Scanner in = new Scanner(System.in);
-                choice = in.nextInt();
-                if (choice < 1 || choice > 3)
-                    System.out.print("Wrong choice. Try again: ");
-            } while (choice < 1 || choice > 3);
             MonsterEntity[] monsters = new MonsterEntity[2];
             monsters[0] = new MonsterEntity("Blob", 20, 1.5, 15, 8, Util.Element.MAGIC, Util.Element.FIRE);
             monsters[1] = new MonsterEntity("Ben", 20, 1.5, 15, 8, Util.Element.MAGIC, Util.Element.LIGHTING);
             PlayerEntity[] players = new PlayerEntity[2];
             players[0] = new PlayerEntity("Henry", 20, 1, new Armor(10, 35, Util.Element.FIRE), new Weapon(10, 10, Util.Element.FIRE));
             players[1] = new PlayerEntity("Henry", 25, 1, new Armor(10, 35, Util.Element.MAGIC), new Weapon(10, 10, Util.Element.MAGIC));
-        switch (choice){
+        switch (choice) {
             case 1:
                 System.out.println("Damage system test: monster attacks player:");
                 monsters[0].AttackPlayer(players[0]);
@@ -53,6 +44,5 @@ public class DamageTest {
             default:
                 break;
         }
-        } while (choice != 3);
     }
 }

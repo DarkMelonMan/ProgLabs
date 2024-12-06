@@ -37,9 +37,9 @@ public class LivingEntity {
         System.out.print("Enter a name of a new entity: ");
         do {
             name = in.next();
-            if (name.length() == 0)
+            if (name.isEmpty())
                 System.out.print("\nInvalid name. Try again: ");
-        } while (name.length() == 0);
+        } while (name.isEmpty());
         System.out.print("\nEnter health points of " + name + " entity: ");
         do {
             healthPoints = in.nextDouble();
