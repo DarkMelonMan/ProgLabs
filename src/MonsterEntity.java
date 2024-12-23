@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Класс монстров - противников игрока
  */
-public class MonsterEntity extends LivingEntity {
+public class MonsterEntity extends LivingEntity implements IAttack{
     double baseDamage;
     double elementDamage;
     Util.Element weakness;
@@ -37,7 +37,8 @@ public class MonsterEntity extends LivingEntity {
     /**
      * Ввод всех полей объекта монстра
      */
-    void inputFields(){
+    @Override
+    protected void inputFields(){
         Scanner in = new Scanner(System.in);
         System.out.print("Enter a base damage of " + name + " monster entity: ");
         do {
@@ -80,23 +81,15 @@ public class MonsterEntity extends LivingEntity {
     }
 
     /**
-     * Атаковать игрока
-     * @param player - ссылка на объект игрока
+     * Атаковать сущность
+     * @param entity - ссылка на объект другой сущности
      */
-    public void AttackPlayer(PlayerEntity player){
-        player.Hurt(this);
+    public void Attack(LivingEntity entity){
+        if (entity instanceof PlayerEntity)
+            ((PlayerEntity)entity).hurt(this);
+        else entity.hurt(Util.CalculateMonsterDamage(this));
     }
 
-    /**
-     * Вывод на экран всех полей объекта MonsterEntity
-     */
-    public void Print(){
-        super.Print();
-        System.out.println("Base damage: " + baseDamage);
-        System.out.println("Elemental damage: " + elementDamage);
-        System.out.println("Elemental weakness type: " + weakness.toString());
-        System.out.println("Elemental type of damage: " + damageType.toString());
-    }
 
     /**
      * Получить слабость монстра к определённому типу стихийного урона
@@ -104,5 +97,10 @@ public class MonsterEntity extends LivingEntity {
      */
     public Util.Element GetMonsterWeakness(){
         return weakness;
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "\nBase damage: " + baseDamage + "\nElemental damage: " + elementDamage + "\nElemental weakness type: " +
+                weakness + "\nElemental type of damage: " + damageType;
     }
 }

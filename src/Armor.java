@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Класс брони игроков
  */
-public class Armor {
+public class Armor implements Cloneable {
     private double baseDefence;
     private double elementDefence;
     private Util.Element defenceType;
@@ -64,9 +64,25 @@ public class Armor {
      * Вывод всех полей брони в консоль
      */
     public void Print(){
-        System.out.println("Player armor: ");
-        System.out.println("Base defence: " + baseDefence);
-        System.out.println("Elemental defence: " + elementDefence);
-        System.out.println("Elemental type of defence: " + defenceType.toString());
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Player armor:\nBase defence: " + baseDefence + "\nElemental defence: " + elementDefence +
+                "\nElemental type of defence: " + defenceType;
+    }
+
+    @Override
+    public Armor clone() {
+        try {
+            return (Armor) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    public Armor deepClone(){
+        return new Armor(baseDefence, elementDefence, defenceType);
     }
 }

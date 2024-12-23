@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Класс живых существ, надкласс для классов игроков и монстров
  */
-public class LivingEntity {
+public class LivingEntity extends Entity{
     protected String name;
     protected double healthPoints;
     protected double movementSpeed;
@@ -19,20 +19,10 @@ public class LivingEntity {
     }
 
     /**
-     * Получить урон
-     * @param damage - количество урона
-     */
-    protected void hurt(double damage){
-        healthPoints -= damage;
-        if (healthPoints <= 0) {
-            healthPoints = 0;
-            System.out.println(name + " entity is dead!");
-        }
-    }
-    /**
     * Ввод всех полей объекта живого существа
     */
-    private void inputFields(){
+    @Override
+    protected void inputFields(){
         Scanner in = new Scanner(System.in);
         System.out.print("Enter a name of a new entity: ");
         do {
@@ -58,17 +48,15 @@ public class LivingEntity {
     /**
      * Вывод на экран всех полей объекта LivingEntity
      */
+    @Override
     public void Print(){
-        System.out.println(name + " entity:");
-        System.out.println("Health points: " + healthPoints);
-        System.out.println("Movement speed: " + movementSpeed);
+        System.out.println(this);
     }
 
-    /**
-     * Получить количество очков здоровья
-     * @return количество очков здоровья
-     */
-    public double GetHealthPoints(){
-        return healthPoints;
+
+
+    @Override
+    public String toString(){
+        return name + " entity:" + "\nHealth points: " + healthPoints + "\nMovement speed: " + movementSpeed;
     }
 }

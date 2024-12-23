@@ -64,9 +64,12 @@ public class Weapon {
      * Вывод всех полей объекта Weapon на экран
      */
     public void Print(){
-        System.out.println("Player weapon: ");
-        System.out.println("Base damage: " + baseDamage);
-        System.out.println("Elemental damage: " + elementDamage);
-        System.out.println("Elemental type of damage: " + damageType.toString());
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Player weapon:\nBase damage: " + baseDamage + "\nElemental damage: " + elementDamage +
+                "\nElemental type of damage: " + damageType;
     }
 }

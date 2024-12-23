@@ -1,7 +1,7 @@
 /**
  * Класс игроков
  */
-public class PlayerEntity extends LivingEntity {
+public class PlayerEntity extends LivingEntity implements IAttack {
     private Armor armor;
     private Weapon weapon;
 
@@ -19,7 +19,8 @@ public class PlayerEntity extends LivingEntity {
     /**
      * Ввод всех полей объекта игрока
      */
-    private void inputFields(){
+    @Override
+    protected void inputFields() {
         armor = new Armor();
         weapon = new Weapon();
     }
@@ -44,24 +45,23 @@ public class PlayerEntity extends LivingEntity {
      * Получить урон
      * @param monster - ссылка на объект монстра
      */
-    public void Hurt(MonsterEntity monster){
+    public void hurt(MonsterEntity monster){
         hurt(Util.CalculateMonsterDamage(armor, monster));
     }
 
     /**
-     * Атаковать монстра
-     * @param monster - ссылка на объект монстра
+     * Атаковать другую сущность
+     * @param entity - ссылка на объект сущности
      */
-    public void AttackMonster(MonsterEntity monster){
-        monster.Hurt(Util.CalculatePlayerDamage(weapon, monster.GetMonsterWeakness()));
+    public void Attack(LivingEntity entity){
+        if (entity instanceof MonsterEntity)
+            ((MonsterEntity)entity).Hurt(Util.CalculatePlayerDamage(weapon, ((MonsterEntity)entity).GetMonsterWeakness()));
+        else entity.hurt(Util.CalculatePlayerDamage(weapon));
     }
 
-    /**
-     * Вывод всех полей объекта игрока
-     */
-    public void Print(){
-        super.Print();
-        armor.Print();
-        weapon.Print();
+
+    @Override
+    public String toString(){
+        return super.toString() + armor + weapon;
     }
 }

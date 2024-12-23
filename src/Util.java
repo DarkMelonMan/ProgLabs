@@ -8,6 +8,7 @@ public class Util {
 
     /**
      * Получить общее количество урона, наносимое монстру
+     * @param weapon - Ссылка на объект оружия игрока
      * @param weakness - Тип стихийной слабости монстра
      * @return Общее количество урона с учётом стихийного и физического урона
      */
@@ -18,6 +19,15 @@ public class Util {
         else if (weakness != Util.Element.NONE)
             damage += weapon.getElementDamage() * 0.5;
         return damage;
+    }
+
+    /**
+     * Получить общее количество урона, наносимое игроком существу
+     * @param weapon - Ссылка на объект оружия игрока
+     * @return Общее количество урона с учётом стихийного и физического урона
+     */
+    public static double CalculatePlayerDamage(Weapon weapon) {
+        return weapon.getBaseDamage() + weapon.getElementDamage();
     }
 
     /**
@@ -32,5 +42,14 @@ public class Util {
             damage += monster.getElementDamage() * (1 - armor.getElementDefence() / 100);
         else if (monster.getDamageType() != Util.Element.NONE) damage += monster.getElementDamage();
         return damage;
+    }
+
+    /**
+     * Получить общее количество урона
+     * @param monster - ссылка на объект монстра
+     * @return общее количество урона с учётом базового и стихийного
+     */
+    public static double CalculateMonsterDamage(MonsterEntity monster){
+        return monster.getBaseDamage() + monster.getElementDamage();
     }
 }
