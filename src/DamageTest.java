@@ -47,20 +47,36 @@ public class DamageTest {
         armor1.Print();
     }
 
-    private static void TestEntityManager(EntityManager<MonsterEntity> savedMonsters){
-        MonsterEntity[] monsters = new MonsterEntity[4];
-        monsters[0] = new MonsterEntity("Blob", 20, 1.5, 15, 8, Util.Element.MAGIC, Util.Element.FIRE);
-        monsters[1] = new MonsterEntity("Ben", 30, 0.5, 10, 3, Util.Element.FIRE, Util.Element.LIGHTING);
-        monsters[2] = new MonsterEntity("Eddie", 10, 2, 9, 3, Util.Element.LIGHTING, Util.Element.MAGIC);
-        monsters[3] = new MonsterEntity("John", 15, 1, 6, 6, Util.Element.MAGIC, Util.Element.LIGHTING);
-        savedMonsters.addEntity(monsters[0]);
-        savedMonsters.addEntity(monsters[1]);
-        savedMonsters.addEntity(monsters[2]);
-        savedMonsters.addEntity(monsters[3]);
-        savedMonsters.Print();
+    private static void TestEntityManager(){
+        EntityManager<LivingEntity> entityManager = new EntityManager<LivingEntity>();
+        MonsterEntity[] monsters = new MonsterEntity[2];
+        monsters[0] = new MonsterEntity("Blob", 40, 4, 15, 8, Util.Element.MAGIC, Util.Element.FIRE);
+        monsters[1] = new MonsterEntity("Ben", 10, 0.5, 10, 3, Util.Element.FIRE, Util.Element.LIGHTING);
+        PlayerEntity[] players = new PlayerEntity[2];
+        players[0] = new PlayerEntity("Henry", 20, 3,
+                new Armor(10, 35, Util.Element.FIRE), new Weapon(10, 10, Util.Element.FIRE));
+        players[1] = new PlayerEntity("Harry", 25, 1,
+                new Armor(10, 35, Util.Element.MAGIC), new Weapon(10, 10, Util.Element.MAGIC));
+        entityManager.addEntity(monsters[0]);
+        entityManager.addEntity(monsters[1]);
+        entityManager.addEntity(players[0]);
+        entityManager.addEntity(players[1]);
+        entityManager.Print();
         System.out.println("After removing Ben entity:\n");
-        savedMonsters.removeEntity(1);
-        savedMonsters.Print();
+        entityManager.removeEntity(1);
+        entityManager.Print();
+        System.out.println("Sorted by name:\n");
+        entityManager.sortByName();
+        entityManager.Print();
+        System.out.println("Sorted by health points:\n");
+        entityManager.sortByHP();
+        entityManager.Print();
+        System.out.println("Sorted by speed:\n");
+        entityManager.sortBySpeed();
+        entityManager.Print();
+        System.out.println("Searching for Blob in manager container\n");
+        LivingEntity blob = entityManager.find("Blob");
+        System.out.println(blob);
     }
 
     /**
@@ -76,7 +92,6 @@ public class DamageTest {
             players[1] = new PlayerEntity("Henry", 25, 1,
                     new Armor(10, 35, Util.Element.MAGIC), new Weapon(10, 10, Util.Element.MAGIC));
             LivingEntity[][] entities = {monsters, players};
-            EntityManager<MonsterEntity> savedMonsters = new EntityManager<MonsterEntity>();
         switch (choice) {
             case 1:
                 TestMonsterEntity(monsters, players);
@@ -91,7 +106,7 @@ public class DamageTest {
                 TestCloning();
                 break;
             case 5:
-                TestEntityManager(savedMonsters);
+                TestEntityManager();
             default:
                 break;
         }

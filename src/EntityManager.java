@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 public class EntityManager<T extends LivingEntity>{
     public EntityManager(){
@@ -24,5 +26,22 @@ public class EntityManager<T extends LivingEntity>{
             System.out.println(entity);
             System.out.println();
         }
+    }
+    public void sortByName(){
+        entities.sort(Comparator.comparing(a -> a.name));
+    }
+    public void sortByHP(){
+        entities.sort(Comparator.comparing(a -> a.healthPoints));
+    }
+    public void sortBySpeed(){
+        entities.sort(Comparator.comparing(a -> a.movementSpeed));
+    }
+
+    public T find(String name) throws NoSuchElementException{
+        for (T entity : entities) {
+            if (entity.name.equals(name))
+                return entity;
+        }
+        throw new NoSuchElementException("Entity not found by name");
     }
 }
